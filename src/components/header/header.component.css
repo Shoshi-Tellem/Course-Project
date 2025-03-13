@@ -1,0 +1,33 @@
+header {
+    background-color: #f0f4f8;
+    padding: 10px;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+li {
+    display: flex;
+    align-items: center;
+}
+
+a {
+    text-decoration: none;
+    color: #2c3e50;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+a.active {
+    color: #8e44ad;
+}
+
+mat-icon {
+    margin-right: 5px;
+    color: #2c3e50;
+}

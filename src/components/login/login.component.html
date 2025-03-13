@@ -1,0 +1,37 @@
+<form class="container royal-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <mat-card class="login-card royal-card">
+    <mat-card-header>
+      <mat-card-title class="royal-title">התחברות</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-form-field class="royal-form-field" appearance="fill">
+        <mat-label>הכנס אימייל</mat-label>
+        <input type="email" matInput placeholder="user@example.com" formControlName="email"
+          (blur)="updateErrorEmailMessage()" required />
+        @if (loginForm.get('email')?.invalid) {
+          <mat-error class="error-message">{{errorEmailMessage()}}</mat-error>
+        }
+      </mat-form-field>
+      <mat-form-field class="royal-form-field" appearance="fill">
+        <mat-label>הכנס סיסמה</mat-label>
+        <input type="password" matInput placeholder="*****" formControlName="password"
+          (blur)="updateErrorPasswordMessage()" required />
+        @if (loginForm.get('password')?.invalid) {
+          <mat-error class="error-message">{{errorPasswordMessage()}}</mat-error>
+        }
+      </mat-form-field>
+    </mat-card-content>
+
+    @if(failed){
+      <div>
+        <mat-icon>error</mat-icon>
+        שגיאה במהלך ההרשמה
+      </div>
+    }
+
+    <mat-card-actions>
+      <input mat-button type="button" (click)="loginForm.reset()" value="איפוס" class="royal-reset-button">
+      <input mat-raised-button type="submit" [disabled]="loginForm.invalid" class="royal-submit-button">
+    </mat-card-actions>
+  </mat-card>
+</form>

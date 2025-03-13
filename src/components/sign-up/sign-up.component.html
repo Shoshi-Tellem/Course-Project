@@ -1,0 +1,70 @@
+<form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="fill">
+      <mat-label>שם</mat-label>
+      <input matInput formControlName="name" required>
+      @if(signUpForm.get('name')?.hasError('required')){
+      <mat-error>
+        חובה להכניס שם
+      </mat-error>
+      }
+      @if(signUpForm.get('name')?.hasError('minlength')){
+      <mat-error>
+        שם קצר מדי
+      </mat-error>
+      }
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>אימייל</mat-label>
+      <input matInput formControlName="email" required>
+      @if(signUpForm.get('email')?.hasError('required') && signUpForm.get('email')?.touched){
+      <mat-error>
+        חובה להכניס אימייל
+      </mat-error>
+      }
+      @if(signUpForm.get('email')?.hasError('email') && signUpForm.get('email')?.touched){
+      <mat-error>
+        אימייל לא תקין
+      </mat-error>
+      }
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>סיסמה</mat-label>
+      <input matInput type="password" formControlName="password" required>
+      @if(signUpForm.get('password')?.hasError('required') && signUpForm.get('password')?.touched){
+      <mat-error>
+        חובה להכניס סיסמה
+      </mat-error>
+      }
+      @if(signUpForm.get('password')?.hasError('minlength') && signUpForm.get('password')?.touched){
+      <mat-error>
+        סיסמה קצרה מדי
+      </mat-error>
+      }
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>תפקיד</mat-label>
+      <mat-select formControlName="role" required>
+        <mat-option value="student">סטודנט</mat-option>
+        <mat-option value="teacher">מורה</mat-option>
+        <mat-option value="admin">מנהל</mat-option>
+      </mat-select>
+      @if(signUpForm.get('role')?.hasError('required') && signUpForm.get('role')?.touched){
+      <mat-error>
+        חובה לבחור ערך
+      </mat-error>
+      }
+    </mat-form-field>
+    
+    @if(failed){
+      <div>
+        <mat-icon>error</mat-icon>
+        שגיאה במהלך ההרשמה
+      </div>
+    }
+
+    <input mat-button type="button" (click)="signUpForm.reset()" value="איפוס">
+    <input mat-raised-button type="submit" [disabled]="signUpForm.invalid">
+  </form>

@@ -1,0 +1,41 @@
+<mat-accordion>
+  @for(course of courses; track course.id){
+  <mat-expansion-panel>
+    <mat-expansion-panel-header [routerLink]="[course.id]">
+      <mat-panel-title>{{course.title}}</mat-panel-title>
+      <mat-panel-description>{{course.description}}</mat-panel-description>
+      @if(role=='student'){
+      <mat-card-footer class="example-card-footer">
+        <mat-chip-set aria-label="Chihuahua traits">
+          @if(isEnrolled(course.id)){
+          <mat-icon (click)="unenrollCourse(course.id, $event)" matTooltip="יציאה מהקורס">person_remove</mat-icon>
+          }
+          @else {
+          <mat-icon (click)="enrollCourse(course.id, $event)" matTooltip="הרשמה לקורס">person_add</mat-icon>
+          }
+        </mat-chip-set>
+      </mat-card-footer>
+      }
+      @if(role=='teacher'){
+      <mat-card-footer class="example-card-footer">
+        <mat-chip-set aria-label="Chihuahua traits">
+          <mat-icon (click)="editCourse(course, $event)" matTooltip="עריכת קורס">edit</mat-icon>
+          <mat-icon (click)="deleteCourse(course.id, $event)" matTooltip="מחיקת קורס">delete</mat-icon>
+        </mat-chip-set>
+      </mat-card-footer>
+      }
+    </mat-expansion-panel-header>
+    <router-outlet></router-outlet>
+  </mat-expansion-panel>
+  }
+  @empty {
+  <mat-card class="example-card" appearance="outlined">
+    <mat-card-header>
+      <mat-card-title>אין קורסים</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>אין קורסים זמינים כרגע</p>
+    </mat-card-content>
+  </mat-card>
+  }
+</mat-accordion>
